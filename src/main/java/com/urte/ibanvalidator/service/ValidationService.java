@@ -1,7 +1,11 @@
 package com.urte.ibanvalidator.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 import static java.lang.Character.getNumericValue;
 
@@ -15,7 +19,6 @@ public class ValidationService {
     public final static String IBAN_IS_VALID = "IBAN is valid";
 
     public boolean validate(String iban) {
-        System.out.println("Validating iban " + iban);
         if (lengthIsValid(iban)
                 && startsWithCountryCode(iban.substring(0, 2))
                 && isAlphaNumeric(iban)) {
@@ -26,13 +29,20 @@ public class ValidationService {
             System.out.println(IBAN_IS_VALID);
             return ibanNumber.mod(DIVIDER).intValue() == 1;
         } else {
-            System.out.println(IBAN_IS_INVALID);
+            System.out.println(iban + IBAN_IS_INVALID);
             return false;
         }
     }
 
     public void validate(File inputFile) {
-        System.out.println("Validating inputFile " + inputFile.getPath());
+        try (Stream<String> ibans = Files.lines(Paths.get(inputFile.getPath()))) {
+            ibans
+                    .map(iban -> iban.trim())
+                    .filter(iban -> !iban.isEmpty())
+                    .forEach(iban -> validate(iban));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean lengthIsValid(String iban) {
