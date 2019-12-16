@@ -5,6 +5,9 @@ import com.urte.ibanvalidator.service.ValidationService;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Responsible for user input reception and validation. If the input is valid, passes it for further processing.
+ */
 public class App
 {
     public final static String PROMPT =
@@ -20,7 +23,7 @@ public class App
         String modeInput = scanner.nextLine();
         try {
             int mode = Integer.parseInt(modeInput);
-            if (!validMode(mode)) {
+            if (!isValidMode(mode)) {
                 exit(MODE_ERROR);
             } else if (mode == 1) {
                 validateIban();
@@ -32,7 +35,7 @@ public class App
         }
     }
 
-    private static boolean validMode(int mode) {
+    private static boolean isValidMode(int mode) {
         return mode == 1 || mode == 2;
     }
 

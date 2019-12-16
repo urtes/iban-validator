@@ -1,16 +1,14 @@
 package com.urte.ibanvalidator.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static java.lang.Character.getNumericValue;
 
+/**
+ * Service that is responsible for IBAN validation
+ */
 public class ValidationService {
 
     public static final int MIN_IBAN_LENGTH = 15;
@@ -44,17 +42,13 @@ public class ValidationService {
     }
 
     public void validate(File inputFile) {
-        try (Stream<String> ibans = Files.lines(Paths.get(inputFile.getPath()))) {
-            List<String> validatedIbans = ibans
-                    .map(String::trim)
-                    .filter(iban -> !iban.isEmpty())
-                    .map(iban -> iban + ";" +  validate(iban))
-                    .collect(Collectors.toList());
-            OutputService outputService = new OutputService();
-            outputService.outputValidationResult(validatedIbans, inputFile.getPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InOutService inOutService = new InOutService();
+        List<String> ibansToValidate = inOutService.getIbansToValidate(inputFile);
+        List<String> ibansWithValidation = ibansToValidate
+                .stream()
+                .map(iban -> iban + ";" + validate(iban))
+                .collect(Collectors.toList());
+        inOutService.outputValidationResult(ibansWithValidation, inputFile.getPath());
     }
 
     private boolean lengthIsValid(String iban) {
@@ -67,9 +61,5 @@ public class ValidationService {
 
     private boolean isAlphaNumeric(String iban) {
         return iban.chars().allMatch(Character::isLetterOrDigit);
-    }
-
-    private int appendChar(int character) {
-        return Character.isLetter(character) ? Character.toUpperCase(getNumericValue(character)) : character;
     }
 }
