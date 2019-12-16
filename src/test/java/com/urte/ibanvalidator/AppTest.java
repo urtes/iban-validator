@@ -1,4 +1,4 @@
-package org.example;
+package com.urte.ibanvalidator;
 
 import static org.junit.Assert.assertTrue;
 

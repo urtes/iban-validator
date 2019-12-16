@@ -1,0 +1,60 @@
+package com.urte.ibanvalidator;
+
+import com.urte.ibanvalidator.service.ValidationService;
+
+import java.io.File;
+import java.util.Scanner;
+
+public class App
+{
+    private final static String PROMPT =
+            "Please enter:\n validation mode (1 or 2) \n iban - for mode 1 or file name with full path - for mode 2";
+
+    private final static String MODE_ERROR = "Invalid mode";
+    private final static String FILE_ERROR = "File not found";
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main( String[] args ) {
+        System.out.println(PROMPT);
+        String modeInput = scanner.nextLine();
+        try {
+            int mode = Integer.parseInt(modeInput);
+            if (!validMode(mode)) {
+                exit(MODE_ERROR);
+            } else if (mode == 1) {
+                validateIban();
+            } else {
+                validateFile();
+            }
+        } catch (NumberFormatException exception) {
+            exit(MODE_ERROR);
+        }
+    }
+
+    private static boolean validMode(int mode) {
+        return mode == 1 || mode == 2;
+    }
+
+    private static void validateIban() {
+        String iban = scanner.nextLine().trim();
+        ValidationService validationService = new ValidationService();
+        validationService.validate(iban);
+    }
+
+    private static void validateFile() {
+        String fileName = scanner.nextLine().trim();
+        File inputFile = new File(fileName);
+        if (inputFile.exists()) {
+            ValidationService validationService = new ValidationService();
+            validationService.validate(inputFile);
+        } else {
+            exit(FILE_ERROR);
+        }
+    }
+
+    private static void exit(String errorMessage) {
+        System.out.println(errorMessage);
+        System.exit(1);
+    }
+}
