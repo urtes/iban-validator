@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class App
 {
-    private final static String PROMPT =
-            "Please enter:\n validation mode (1 or 2) \n iban - for mode 1 or file name with full path - for mode 2";
+    public final static String PROMPT =
+            "Please enter:\n validation mode (1 or 2)\n iban - for mode 1 or file name with full path - for mode 2";
 
-    private final static String MODE_ERROR = "Invalid mode";
-    private final static String FILE_ERROR = "File not found";
+    public final static String MODE_ERROR = "Invalid mode";
+    public final static String FILE_ERROR = "File not found";
 
-    private static Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main( String[] args ) {
         System.out.println(PROMPT);
