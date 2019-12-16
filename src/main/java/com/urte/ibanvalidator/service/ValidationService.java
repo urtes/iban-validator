@@ -3,26 +3,30 @@ package com.urte.ibanvalidator.service;
 import java.io.File;
 import java.math.BigInteger;
 
+import static java.lang.Character.getNumericValue;
+
 public class ValidationService {
 
     public static final int MIN_IBAN_LENGTH = 15;
     public static final int MAX_IBAN_LENGTH = 34;
     public static final BigInteger DIVIDER = new BigInteger("97");
 
-    public final static String INVALID_IBAN = "IBAN is invalid";
-    public final static String VALID_IBAN = "IBAN is valid";
+    public final static String IBAN_IS_INVALID = "IBAN is invalid";
+    public final static String IBAN_IS_VALID = "IBAN is valid";
 
     public boolean validate(String iban) {
         System.out.println("Validating iban " + iban);
-        if (lengthIsValid(iban) && startsWithCountryCode(iban.substring(0, 2)) && isAlphaNumeric(iban)) {
-            String modifiedIban = (iban.substring(4) + iban.substring(0, 4)).toUpperCase();
+        if (lengthIsValid(iban)
+                && startsWithCountryCode(iban.substring(0, 2))
+                && isAlphaNumeric(iban)) {
+            String modifiedIban = (iban.substring(4) + iban.substring(0, 4));
             StringBuilder numericIban = new StringBuilder();
-            modifiedIban.chars().forEach(character -> numericIban.append(Character.getNumericValue(character)));
+            modifiedIban.chars().forEach(character -> numericIban.append(appendChar(character)));
             BigInteger ibanNumber = new BigInteger(numericIban.toString());
-            System.out.println(VALID_IBAN);
+            System.out.println(IBAN_IS_VALID);
             return ibanNumber.mod(DIVIDER).intValue() == 1;
         } else {
-            System.out.println(INVALID_IBAN);
+            System.out.println(IBAN_IS_INVALID);
             return false;
         }
     }
@@ -41,5 +45,9 @@ public class ValidationService {
 
     private boolean isAlphaNumeric(String iban) {
         return iban.chars().allMatch(Character::isLetterOrDigit);
+    }
+
+    private int appendChar(int character) {
+        return Character.isLetter(character) ? Character.toUpperCase(getNumericValue(character)) : character;
     }
 }
