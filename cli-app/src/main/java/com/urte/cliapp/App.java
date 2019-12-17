@@ -10,18 +10,15 @@ import java.util.Scanner;
  * Responsible for user input reception and validation. If the input is valid, passes it for further processing.
  */
 
-// TODO https://maven.apache.org/guides/mini/guide-multiple-modules.html
-// TODO https://books.sonatype.com/mvnex-book/reference/multimodule.html
-
 public class App
 {
-    public final static String PROMPT =
+    private final static String PROMPT =
             "Please enter:\n validation mode (1 or 2)\n iban - for mode 1 or file name with full path - for mode 2";
 
-    public final static String MODE_ERROR = "Invalid mode";
-    public final static String FILE_ERROR = "File not found";
+    private final static String MODE_ERROR = "Invalid mode";
+    private final static String FILE_ERROR = "File not found";
 
-    public static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     private static Validator validator = new Validator();
 
     public static void main( String[] args ) {

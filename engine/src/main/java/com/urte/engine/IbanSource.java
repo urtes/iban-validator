@@ -1,7 +1,7 @@
 package com.urte.engine;
 
 /**
- * Class that represent data that can be either valid or invalid IBAN
+ * Class that represents data that can be either valid or invalid IBAN
  */
 public class IbanSource {
 

@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Service that is responsible for reading IBAN data from input file outputing IBAN validation results to output file
+ * Service that is responsible for reading IBAN data from input file and outputing IBAN validation results to output
+ * file
  */
 public class InOutService {
 

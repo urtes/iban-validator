@@ -3,7 +3,7 @@ package com.urte.engine;
 import java.math.BigInteger;
 
 /**
- * Service that is responsible for IBAN validation
+ * Class that is responsible for IBAN validation
  */
 public class Validator {
 
