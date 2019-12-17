@@ -1,5 +1,8 @@
 package com.urte.ibanvalidator.domain;
 
+/**
+ * Class that represent data that can be either valid or invalid IBAN
+ */
 public class IbanSource {
 
     private String iban;

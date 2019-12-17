@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class ValidationServiceTest {
 
     @Test
-    public void testStringValidation() {
+    public void testIsValid() {
         ValidationService validationService = new ValidationService();
         assertTrue(validationService.isValid("AD1400080001001234567890"));
         assertFalse(validationService.isValid("AA1400080001001234567890"));
