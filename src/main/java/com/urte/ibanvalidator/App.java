@@ -8,6 +8,10 @@ import java.util.Scanner;
 /**
  * Responsible for user input reception and validation. If the input is valid, passes it for further processing.
  */
+
+// TODO https://maven.apache.org/guides/mini/guide-multiple-modules.html
+// TODO https://books.sonatype.com/mvnex-book/reference/multimodule.html
+
 public class App
 {
     public final static String PROMPT =

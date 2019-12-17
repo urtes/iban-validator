@@ -1,5 +1,7 @@
 package com.urte.ibanvalidator.service;
 
+import com.urte.ibanvalidator.IbanByCountry;
+
 import java.io.File;
 import java.math.BigInteger;
 import java.util.List;
@@ -11,18 +13,17 @@ import java.util.stream.Collectors;
  */
 public class ValidationService {
 
-    public static final int MIN_IBAN_LENGTH = 15;
-    public static final int MAX_IBAN_LENGTH = 34;
+    /**
+     * Used to perform basic mod-97 operation (as described in ISO 7064), required for IBAN validation procedure
+     */
     public static final BigInteger DIVIDER = new BigInteger("97");
 
     public final static String IBAN_IS_INVALID = "IBAN is invalid";
     public final static String IBAN_IS_VALID = "IBAN is valid";
 
     public boolean validate(String iban) {
-        if (lengthIsValid(iban)
-                && startsWithCountryCode(iban.substring(0, 2))
-                && isAlphaNumeric(iban)) {
-            String modifiedIban = (iban.substring(4) + iban.substring(0, 4));
+        if (countryCodeMatchesLength(iban) && isAlphaNumeric(iban)) {
+            String modifiedIban = iban.substring(4) + iban.substring(0, 4);
             StringBuilder numericIban = new StringBuilder();
             for (int i = 0; i < modifiedIban.length(); i++) {
                 numericIban.append(Character.getNumericValue(modifiedIban.charAt(i)));
@@ -51,12 +52,11 @@ public class ValidationService {
         inOutService.outputValidationResult(ibansWithValidation, inputFile.getPath());
     }
 
-    private boolean lengthIsValid(String iban) {
-        return iban.length() >= MIN_IBAN_LENGTH && iban.length() <= MAX_IBAN_LENGTH;
-    }
-
-    private boolean startsWithCountryCode(String countryCode) {
-        return countryCode.chars().allMatch(Character::isLetter);
+    private boolean countryCodeMatchesLength(String iban) {
+        String countryCode = iban.substring(0, 2);
+        countryCode = IbanByCountry.IBAN_BY_COUNTRY.containsKey(countryCode) ? countryCode : null;
+        return countryCode != null
+               && iban.length() == IbanByCountry.IBAN_BY_COUNTRY.get(countryCode);
     }
 
     private boolean isAlphaNumeric(String iban) {

@@ -44,7 +44,6 @@ public class InOutService {
 
     private String getOutFilePath(String inFilePath) {
         int indexOfDot = inFilePath.lastIndexOf('.');
-        String name = inFilePath.substring(0, indexOfDot);
         return inFilePath.substring(0, indexOfDot) + OUT_EXTENSION;
     }
 }
