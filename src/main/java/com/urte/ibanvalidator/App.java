@@ -46,7 +46,7 @@ public class App
     private static void validateIban() {
         String iban = scanner.nextLine().trim();
         ValidationService validationService = new ValidationService();
-        validationService.validate(iban);
+        validationService.isValid(iban);
     }
 
     private static void validateFile() {

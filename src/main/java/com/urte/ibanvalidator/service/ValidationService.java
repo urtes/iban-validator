@@ -1,11 +1,12 @@
 package com.urte.ibanvalidator.service;
 
 import com.urte.ibanvalidator.IbanByCountry;
+import com.urte.ibanvalidator.domain.IbanSource;
 
 import java.io.File;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -21,7 +22,7 @@ public class ValidationService {
     public final static String IBAN_IS_INVALID = "IBAN is invalid";
     public final static String IBAN_IS_VALID = "IBAN is valid";
 
-    public boolean validate(String iban) {
+    public boolean isValid(String iban) {
         if (countryCodeMatchesLength(iban) && isAlphaNumeric(iban)) {
             String modifiedIban = iban.substring(4) + iban.substring(0, 4);
             StringBuilder numericIban = new StringBuilder();
@@ -30,25 +31,27 @@ public class ValidationService {
             }
             BigInteger ibanNumber = new BigInteger(numericIban.toString());
             if (ibanNumber.mod(DIVIDER).intValue() == 1) {
-                System.out.println(iban + IBAN_IS_VALID);
+                System.out.println(iban + " " + IBAN_IS_VALID);
                 return true;
             } else {
-                System.out.println(iban + IBAN_IS_INVALID);
+                System.out.println(iban + " " + IBAN_IS_INVALID);
                 return false;
             }
         } else {
-            System.out.println(iban + IBAN_IS_INVALID);
+            System.out.println(iban + " " + IBAN_IS_INVALID);
             return false;
         }
     }
 
     public void validate(File inputFile) {
         InOutService inOutService = new InOutService();
-        List<String> ibansToValidate = inOutService.getIbansToValidate(inputFile);
-        List<String> ibansWithValidation = ibansToValidate
-                .stream()
-                .map(iban -> iban + ";" + validate(iban))
-                .collect(Collectors.toList());
+        List<IbanSource> ibansToValidate = inOutService.getIbansToValidate(inputFile);
+        List<IbanSource> ibansWithValidation = new ArrayList<>();
+        ibansToValidate
+                .forEach(ibanSource -> {
+                    ibanSource.setValid(isValid(ibanSource.getIban()));
+                    ibansWithValidation.add(ibanSource);
+                });
         inOutService.outputValidationResult(ibansWithValidation, inputFile.getPath());
     }
 

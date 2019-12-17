@@ -1,5 +1,7 @@
 package com.urte.ibanvalidator.service;
 
+import com.urte.ibanvalidator.domain.IbanSource;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,12 +20,13 @@ public class InOutService {
 
     public final static String OUT_EXTENSION = ".out";
 
-    public List<String> getIbansToValidate(File inputFile) {
-        List<String> ibans = new ArrayList<>();
+    public List<IbanSource> getIbansToValidate(File inputFile) {
+        List<IbanSource> ibans = new ArrayList<>();
         try (Stream<String> ibansInFile = Files.lines(Paths.get(inputFile.getPath()))) {
             ibans  = ibansInFile
                     .map(String::trim)
                     .filter(iban -> !iban.isEmpty())
+                    .map(IbanSource::new)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,11 +34,11 @@ public class InOutService {
         return ibans;
     }
 
-    public void outputValidationResult(List<String> validatedIbans, String inFilePath) {
+    public void outputValidationResult(List<IbanSource> validatedIbans, String inFilePath) {
         File outputFile = new File(getOutFilePath(inFilePath));
         try {
             PrintWriter printWriter = new PrintWriter(outputFile);
-            validatedIbans.forEach(iban -> printWriter.println(iban));
+            validatedIbans.forEach(printWriter::println);
             printWriter.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
