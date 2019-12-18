@@ -1,6 +1,5 @@
-package com.urte.cliapp;
+package com.urte.cliapp.service;
 
-import com.urte.cliapp.service.ValidationService;
 import com.urte.engine.Validator;
 import org.junit.Test;
 import org.mockito.Mockito;

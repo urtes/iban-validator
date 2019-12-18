@@ -1,7 +1,6 @@
-package com.urte.webapp;
+package com.urte.webapp.service;
 
 import com.urte.engine.Validator;
-import com.urte.webapp.service.ValidationService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
