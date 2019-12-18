@@ -5,6 +5,10 @@ IBAN Validator is a project for validating International Bank Account Numbers (I
 
 The project is developed in Java, using Maven and Spring Boot (for web version).
 
+## Build
+
+From parent run `mvn clean install`, then from cli-app run `mvn clean compile assembly:single`. There are no additional steps for building web-app.
+
 ## Installation
 
 To run the command line application download cli-app-1.0-RELEASE.jar file from Releases.
