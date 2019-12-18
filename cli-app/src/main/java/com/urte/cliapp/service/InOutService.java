@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  */
 public class InOutService {
 
-    public final static String OUT_EXTENSION = ".out";
+    private final static String OUT_EXTENSION = ".out";
 
     public List<IbanSource> getIbansToValidate(File inputFile) {
         List<IbanSource> ibans = new ArrayList<>();

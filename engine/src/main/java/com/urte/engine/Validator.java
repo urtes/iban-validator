@@ -47,9 +47,9 @@ public class Validator {
 
     private boolean countryCodeMatchesLength(String iban) {
         String countryCode = iban.substring(0, 2);
-        countryCode = IbanByCountry.IBAN_BY_COUNTRY.containsKey(countryCode) ? countryCode : null;
+        countryCode = IbanByCountry.LENGTH_BY_COUNTRY.containsKey(countryCode) ? countryCode : null;
         return countryCode != null
-               && iban.length() == IbanByCountry.IBAN_BY_COUNTRY.get(countryCode);
+               && iban.length() == IbanByCountry.LENGTH_BY_COUNTRY.get(countryCode);
     }
 
     private boolean isAlphaNumeric(String iban) {
