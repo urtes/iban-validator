@@ -24,6 +24,7 @@ public class InOutService {
 
     public List<IbanSource> getIbansToValidate(File inputFile) {
         List<IbanSource> ibans = new ArrayList<>();
+
         try (Stream<String> ibansInFile = Files.lines(Paths.get(inputFile.getPath()))) {
             ibans  = ibansInFile
                     .map(String::trim)
@@ -33,11 +34,13 @@ public class InOutService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return ibans;
     }
 
     public void outputValidationResult(List<IbanSource> validatedIbans, String inFilePath) {
         File outputFile = new File(getOutFilePath(inFilePath));
+
         try {
             PrintWriter printWriter = new PrintWriter(outputFile);
             validatedIbans.forEach(printWriter::println);

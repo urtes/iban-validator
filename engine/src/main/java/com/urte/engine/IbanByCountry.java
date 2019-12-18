@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Class that holds info on valid country codes and IBAN length in those countries.
- * Info is kept in a HashMap whose keys represent country code and values represent length of IBAN in that
+ * Info is kept in a map whose keys represent country code and values represent length of IBAN in that
  * country.
  * Includes info on partial IBAN countries as well.
  * Datasource: https://www.iban.com/structure.

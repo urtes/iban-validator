@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ValidationService {
 
-    Validator validator;
+    private Validator validator;
 
     public ValidationService(Validator validator) {
         this.validator = validator;

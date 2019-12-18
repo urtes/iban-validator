@@ -7,7 +7,7 @@
   <groupId>com.urte</groupId>
   <artifactId>iban-validator</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-RELEASE</version>
   <modules>
     <module>cli-app</module>
     <module>engine</module>

@@ -11,6 +11,7 @@ public class ValidatorTest {
     public void testIsValid() {
         Validator validator = new Validator();
         assertTrue(validator.isValid("AD1400080001001234567890"));
+        assertTrue(validator.isValid("ad1400080001001234567890"));
         assertFalse(validator.isValid("AA1400080001001234567890"));
         assertFalse(validator.isValid("AD1400080001001234567891"));
         assertFalse(validator.isValid("1400080001001234567890"));

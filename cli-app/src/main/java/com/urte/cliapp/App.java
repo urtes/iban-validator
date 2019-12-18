@@ -17,11 +17,14 @@ public class App {
     private final static String FILE_ERROR = "File not found";
 
     public static void main( String[] args ) {
+
         if (args.length != 2) {
             exit(ARGUMENTS_ERROR);
         }
+
         try {
             int mode = Integer.parseInt(args[0]);
+
             if (!isValidMode(mode)) {
                 exit(MODE_ERROR);
             } else if (mode == 1) {
@@ -29,6 +32,7 @@ public class App {
             } else {
                 validateFile(args[1]);
             }
+
         } catch (NumberFormatException exception) {
             exit(MODE_ERROR);
         }
@@ -45,6 +49,7 @@ public class App {
 
     private static void validateFile(String filePath) {
         File inputFile = new File(filePath);
+
         if (inputFile.exists()) {
             ValidationService validationService = new ValidationService(new Validator());
             validationService.validate(inputFile);
