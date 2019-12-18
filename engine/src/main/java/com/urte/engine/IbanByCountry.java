@@ -15,7 +15,7 @@ public class IbanByCountry {
     private IbanByCountry() {
     }
 
-    public final static Map<String, Integer> IBAN_BY_COUNTRY = new HashMap<String, Integer>() {{
+    public final static Map<String, Integer> LENGTH_BY_COUNTRY = new HashMap<String, Integer>() {{
         put("AL", 28);
         put("AD", 24);
         put("AT", 20);

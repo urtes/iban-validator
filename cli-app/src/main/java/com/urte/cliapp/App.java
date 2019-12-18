@@ -19,7 +19,6 @@ public class App
     private final static String FILE_ERROR = "File not found";
 
     private static Scanner scanner = new Scanner(System.in);
-    private static Validator validator = new Validator();
 
     public static void main( String[] args ) {
         System.out.println(PROMPT);
@@ -44,14 +43,15 @@ public class App
 
     private static void validateIban() {
         String iban = scanner.nextLine().trim();
-        validator.isValid(iban);
+        ValidationService validationService = new ValidationService(new Validator());
+        validationService.validate(iban);
     }
 
     private static void validateFile() {
         String fileName = scanner.nextLine().trim();
         File inputFile = new File(fileName);
         if (inputFile.exists()) {
-            ValidationService validationService = new ValidationService(validator);
+            ValidationService validationService = new ValidationService(new Validator());
             validationService.validate(inputFile);
         } else {
             exit(FILE_ERROR);

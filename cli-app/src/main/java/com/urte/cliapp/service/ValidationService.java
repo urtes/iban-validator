@@ -19,6 +19,10 @@ public class ValidationService {
         this.validator = validator;
     }
 
+    public void validate(String iban) {
+        validator.isValid(iban);
+    }
+
     public void validate(File inputFile) {
         InOutService inOutService = new InOutService();
         List<IbanSource> ibansToValidate = inOutService.getIbansToValidate(inputFile);
