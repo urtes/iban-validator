@@ -10,13 +10,13 @@ public class Validator {
     /**
      * Used to perform basic mod-97 operation (as described in ISO 7064), required for IBAN validation procedure
      */
-    public static final BigInteger DIVIDER = new BigInteger("97");
+    private static final BigInteger DIVIDER = new BigInteger("97");
 
-    public final static String IBAN_IS_INVALID = "IBAN is invalid";
-    public final static String IBAN_IS_VALID = "IBAN is valid";
+    private final static String IBAN_IS_INVALID = "IBAN is invalid";
+    private final static String IBAN_IS_VALID = "IBAN is valid";
 
-    public static final int MIN_IBAN_LENGTH = 15;
-    public static final int MAX_IBAN_LENGTH = 34;
+    private static final int MIN_IBAN_LENGTH = 15;
+    private static final int MAX_IBAN_LENGTH = 34;
 
     public boolean isValid(String iban) {
         if (isLengthInRange(iban)
