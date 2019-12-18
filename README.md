@@ -21,7 +21,7 @@ If `1` is entered, then second argument is expected to be IBAN to be validated. 
 console.
 
 If `2` is entered, then second argument is expected to be a file with a full path, containing a list of IBANs to
-validate. Validation result will be written into to a new file with same path and name as input file, it's extension
+validate. Input file has to have extension Validation result will be written into to a new file with same path and name as input file, it's extension
  will be `.out`.
  
 To start the application go to the directory where cli-app-1.0-RELEASE.jar file is located and execute `java -jar cli
